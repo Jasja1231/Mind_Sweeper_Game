@@ -42,7 +42,7 @@
             this.Confirm = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.nameBox = new System.Windows.Forms.TextBox();
             this.Difficulty.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -108,7 +108,6 @@
             this.NonStanrdard.Name = "NonStanrdard";
             this.NonStanrdard.Size = new System.Drawing.Size(86, 17);
             this.NonStanrdard.TabIndex = 6;
-            this.NonStanrdard.TabStop = true;
             this.NonStanrdard.Text = "Not standard";
             this.NonStanrdard.UseVisualStyleBackColor = true;
             this.NonStanrdard.CheckedChanged += new System.EventHandler(this.NonStanrdard_CheckedChanged);
@@ -144,6 +143,7 @@
             this.Beginner.TabStop = true;
             this.Beginner.Text = "Beginner";
             this.Beginner.UseVisualStyleBackColor = true;
+            this.Beginner.CheckedChanged += new System.EventHandler(this.Beginner_CheckedChanged);
             // 
             // Hard
             // 
@@ -152,9 +152,9 @@
             this.Hard.Name = "Hard";
             this.Hard.Size = new System.Drawing.Size(48, 17);
             this.Hard.TabIndex = 9;
-            this.Hard.TabStop = true;
             this.Hard.Text = "Hard";
             this.Hard.UseVisualStyleBackColor = true;
+            this.Hard.CheckedChanged += new System.EventHandler(this.Hard_CheckedChanged);
             // 
             // Intermediate
             // 
@@ -163,9 +163,9 @@
             this.Intermediate.Name = "Intermediate";
             this.Intermediate.Size = new System.Drawing.Size(83, 17);
             this.Intermediate.TabIndex = 8;
-            this.Intermediate.TabStop = true;
             this.Intermediate.Text = "Intermediate";
             this.Intermediate.UseVisualStyleBackColor = true;
+            this.Intermediate.CheckedChanged += new System.EventHandler(this.Intermediate_CheckedChanged);
             // 
             // Confirm
             // 
@@ -194,13 +194,13 @@
             this.label4.TabIndex = 10;
             this.label4.Text = "Name : ";
             // 
-            // textBox1
+            // nameBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(56, 175);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(104, 20);
-            this.textBox1.TabIndex = 11;
-            this.textBox1.Text = "Anonymous";
+            this.nameBox.Location = new System.Drawing.Point(56, 175);
+            this.nameBox.Name = "nameBox";
+            this.nameBox.Size = new System.Drawing.Size(104, 20);
+            this.nameBox.TabIndex = 11;
+            this.nameBox.Text = "Anonymous";
             // 
             // Options
             // 
@@ -208,7 +208,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(319, 252);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.nameBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Confirm);
@@ -243,6 +243,6 @@
         private System.Windows.Forms.Button Confirm;
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox nameBox;
     }
 }

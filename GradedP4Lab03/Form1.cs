@@ -13,7 +13,7 @@ namespace GradedP4Lab03
     public partial class Form1 : Form
     {
 
-        TableLayoutPanel map = new TableLayoutPanel();
+        TableLayoutPanel board = new TableLayoutPanel();
         int rows = 4;
         int cols = 4;
 
@@ -23,10 +23,7 @@ namespace GradedP4Lab03
             InitializeComponent();
         }
 
-        private void startGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-         
-        }
+       
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -40,33 +37,35 @@ namespace GradedP4Lab03
        
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
+
+            CreateGame(Options.height, Options.width);
          
+        }
 
+        private void CreateGame(int rows, int cols) {
+            board.Dock = DockStyle.Fill;
 
-
-             map.Dock = DockStyle.Fill;
-            
-            map.ColumnStyles.Clear();
-            map.RowStyles.Clear();
+            board.ColumnStyles.Clear();
+            board.RowStyles.Clear();
             //set number of rows and columns +2 for menubar and tool strip
-            map.RowCount = rows + 2;
-            map.ColumnCount = cols;
+            board.RowCount = rows + 2;
+            board.ColumnCount = cols;
             //set row for toolStrip menustrip=24px tall
-            map.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24));
-           
+            board.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24));
+
             for (int i = 1; i <= rows; i++)
             {
-                map.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60));
+                board.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 60));
             }
             for (int i = 1; i <= cols; i++)
             {
-                map.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60));
+                board.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60));
             }
-           
+
             //set row for toolStrip toolStrip=24px tall
-            map.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25));
-            this.Controls.Add(map);
- 
+            board.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25));
+            this.Controls.Add(board);
+
             //list for storing possible co-ordinates (MENUSTRIP TAKES UP 1ST ROW! & TOOLSTIP lAST ROW)
             List<Point> possible = new List<Point> { };
             for (int i = 0; i < cols; i++)
@@ -78,7 +77,7 @@ namespace GradedP4Lab03
             }
             Random rnd = new Random();
             //If they exist, remove old game controls
-            map.Controls.Clear();
+            board.Controls.Clear();
 
             for (int i = 0; i < cols; i++)
             {
@@ -98,7 +97,7 @@ namespace GradedP4Lab03
                     int used = rnd.Next(possible.Count);
                     Point xy = possible[used];
                     possible.Remove(xy);
-                    map.Controls.Add(panel, xy.X, xy.Y);
+                    board.Controls.Add(panel, xy.X, xy.Y);
 
                     panel.Dock = DockStyle.Fill;
                     panel.Controls.Add(b);
@@ -109,25 +108,17 @@ namespace GradedP4Lab03
                     this.Height = 24 + 25 + (60 * rows) + 35;
                 }
             }
-            /*for (int i = 0; i < 16; i++)
-            {
-                Button button = new Button();
-                button.Dock = DockStyle.Fill;
-                button.BackColor = Color.Pink;
-                button.Height = 60;
-                button.Width = 60; 
-            }*/
         }
-
-
-       
-
-       
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         { 
             Options op = new Options();
             op.ShowDialog();
+        }
+
+        private void startGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
         }
       
     }

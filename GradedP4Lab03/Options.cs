@@ -40,36 +40,30 @@ namespace GradedP4Lab03
 
         protected void Confirm_Click(object sender, EventArgs e)
         {
-            
-            try {
-                int test_height = int.Parse(inputBox1.Text);
-                int test_width = int.Parse(inputBox2.Text);
-                int test_mines = int.Parse(inputBox3.Text);
+            if (NonStanrdard.Checked) { 
+                try {
+                    int test_height = int.Parse(inputBox1.Text);
+                    int test_width = int.Parse(inputBox2.Text);
+                    int test_mines = int.Parse(inputBox3.Text);
                 
-                if (!Enumerable.Range(1, 15).Contains(test_height) || !Enumerable.Range(1, 15).Contains(test_width) || !Enumerable.Range(0, test_height * test_width).Contains(test_mines)) {
-                    ApplicationException CustomException = new ApplicationException();  
-                    throw CustomException;
+                    if (!Enumerable.Range(1, 15).Contains(test_height) || !Enumerable.Range(1, 15).Contains(test_width) || !Enumerable.Range(0, test_height * test_width).Contains(test_mines)) {
+                        ApplicationException CustomException = new ApplicationException();  
+                        throw CustomException;
+                    }
+
+                    width = test_width;
+                    height = test_height;
+                    mines = test_mines;
                 }
+                catch{
+                    Show_Error();
+                }
+           }
 
-                width = test_width;
-                height = test_height;
-                mines = test_mines;
-            }
-            catch{
-                Show_Error();
-            }
+            this.Close();
         }
 
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
+       
         private void NonStanrdard_CheckedChanged(object sender, EventArgs e)
         {
             label1.Enabled = !label1.Enabled;
@@ -80,5 +74,36 @@ namespace GradedP4Lab03
             inputBox2.Enabled = !inputBox2.Enabled;
             inputBox3.Enabled = !inputBox3.Enabled;
        }
+
+        private void Beginner_CheckedChanged(object sender, EventArgs e)
+        {
+            height = 4;
+            width = 6;
+            mines = 1;
+        }
+
+        private void Intermediate_CheckedChanged(object sender, EventArgs e)
+        {
+            height = 8;
+            width = 8;
+            mines = 12;
+        }
+
+        private void Hard_CheckedChanged(object sender, EventArgs e)
+        {
+            height = 10;
+            width = 10;
+            mines = 50;
+        }
+
+        private void groupBox1_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

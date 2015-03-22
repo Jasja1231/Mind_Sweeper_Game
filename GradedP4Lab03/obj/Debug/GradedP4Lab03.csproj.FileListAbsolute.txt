@@ -18,8 +18,8 @@ C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab0
 C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\bin\Debug\normnfd.nlp
 C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\bin\Debug\normnfkc.nlp
 C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\bin\Debug\normnfkd.nlp
-C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\obj\Debug\GradedP4Lab03.csprojResolveAssemblyReference.cache
 C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\obj\Debug\GradedP4Lab03.Form1.resources
 C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\obj\Debug\GradedP4Lab03.Options.resources
 C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\obj\Debug\GradedP4Lab03.Properties.Resources.resources
 C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\obj\Debug\GradedP4Lab03.csproj.GenerateResource.Cache
+C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\obj\Debug\GradedP4Lab03.csprojResolveAssemblyReference.cache
