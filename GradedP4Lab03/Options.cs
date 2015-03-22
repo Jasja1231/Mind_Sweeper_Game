@@ -21,10 +21,6 @@ namespace GradedP4Lab03
         public static int width = 4;
         public static int mines = 1;
 
-        /*private TextBox inputBox1;
-        private TextBox inputBox2;
-        private TextBox inputBox3;
-        */
         private void Options_Load(object sender, EventArgs e)
         {
             Cancel.Click += new EventHandler(Cancel_Click);
@@ -34,6 +30,9 @@ namespace GradedP4Lab03
         protected void Cancel_Click(object sender, EventArgs e) {
             this.Close();
         }
+
+
+        
 
         protected void Show_Error() {
             DialogResult result = MessageBox.Show("Values are wrong", "", MessageBoxButtons.OK);
@@ -71,6 +70,15 @@ namespace GradedP4Lab03
 
         }
 
+        private void NonStanrdard_CheckedChanged(object sender, EventArgs e)
+        {
+            label1.Enabled = !label1.Enabled;
+            label2.Enabled = !label2.Enabled;
+            label3.Enabled = !label3.Enabled;
 
+            inputBox1.Enabled = !inputBox1.Enabled;
+            inputBox2.Enabled = !inputBox2.Enabled;
+            inputBox3.Enabled = !inputBox3.Enabled;
+       }
     }
 }

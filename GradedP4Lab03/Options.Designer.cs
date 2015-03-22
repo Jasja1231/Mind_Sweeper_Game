@@ -36,9 +36,9 @@
             this.label3 = new System.Windows.Forms.Label();
             this.NonStanrdard = new System.Windows.Forms.RadioButton();
             this.Difficulty = new System.Windows.Forms.GroupBox();
-            this.radioButton3 = new System.Windows.Forms.RadioButton();
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.Beginner = new System.Windows.Forms.RadioButton();
+            this.Hard = new System.Windows.Forms.RadioButton();
+            this.Intermediate = new System.Windows.Forms.RadioButton();
             this.Confirm = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
@@ -48,6 +48,7 @@
             // 
             // inputBox1
             // 
+            this.inputBox1.Enabled = false;
             this.inputBox1.Location = new System.Drawing.Point(189, 51);
             this.inputBox1.Name = "inputBox1";
             this.inputBox1.Size = new System.Drawing.Size(100, 20);
@@ -55,6 +56,7 @@
             // 
             // inputBox2
             // 
+            this.inputBox2.Enabled = false;
             this.inputBox2.Location = new System.Drawing.Point(189, 77);
             this.inputBox2.Name = "inputBox2";
             this.inputBox2.Size = new System.Drawing.Size(100, 20);
@@ -62,6 +64,7 @@
             // 
             // inputBox3
             // 
+            this.inputBox3.Enabled = false;
             this.inputBox3.Location = new System.Drawing.Point(189, 103);
             this.inputBox3.Name = "inputBox3";
             this.inputBox3.Size = new System.Drawing.Size(100, 20);
@@ -70,6 +73,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
+            this.label1.Enabled = false;
             this.label1.Location = new System.Drawing.Point(148, 54);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(38, 13);
@@ -80,6 +84,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
+            this.label2.Enabled = false;
             this.label2.Location = new System.Drawing.Point(148, 83);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(35, 13);
@@ -89,6 +94,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
+            this.label3.Enabled = false;
             this.label3.Location = new System.Drawing.Point(148, 106);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(35, 13);
@@ -105,12 +111,13 @@
             this.NonStanrdard.TabStop = true;
             this.NonStanrdard.Text = "Not standard";
             this.NonStanrdard.UseVisualStyleBackColor = true;
+            this.NonStanrdard.CheckedChanged += new System.EventHandler(this.NonStanrdard_CheckedChanged);
             // 
             // Difficulty
             // 
-            this.Difficulty.Controls.Add(this.radioButton1);
-            this.Difficulty.Controls.Add(this.radioButton3);
-            this.Difficulty.Controls.Add(this.radioButton2);
+            this.Difficulty.Controls.Add(this.Beginner);
+            this.Difficulty.Controls.Add(this.Hard);
+            this.Difficulty.Controls.Add(this.Intermediate);
             this.Difficulty.Controls.Add(this.inputBox1);
             this.Difficulty.Controls.Add(this.NonStanrdard);
             this.Difficulty.Controls.Add(this.inputBox2);
@@ -126,38 +133,39 @@
             this.Difficulty.Text = "groupBox1";
             this.Difficulty.Enter += new System.EventHandler(this.groupBox1_Enter);
             // 
-            // radioButton3
+            // Beginner
             // 
-            this.radioButton3.AutoSize = true;
-            this.radioButton3.Location = new System.Drawing.Point(6, 77);
-            this.radioButton3.Name = "radioButton3";
-            this.radioButton3.Size = new System.Drawing.Size(85, 17);
-            this.radioButton3.TabIndex = 9;
-            this.radioButton3.TabStop = true;
-            this.radioButton3.Text = "radioButton3";
-            this.radioButton3.UseVisualStyleBackColor = true;
+            this.Beginner.AutoSize = true;
+            this.Beginner.Checked = true;
+            this.Beginner.Location = new System.Drawing.Point(6, 31);
+            this.Beginner.Name = "Beginner";
+            this.Beginner.Size = new System.Drawing.Size(67, 17);
+            this.Beginner.TabIndex = 7;
+            this.Beginner.TabStop = true;
+            this.Beginner.Text = "Beginner";
+            this.Beginner.UseVisualStyleBackColor = true;
             // 
-            // radioButton1
+            // Hard
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.Location = new System.Drawing.Point(6, 31);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
-            this.radioButton1.TabIndex = 7;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "radioButton1";
-            this.radioButton1.UseVisualStyleBackColor = true;
+            this.Hard.AutoSize = true;
+            this.Hard.Location = new System.Drawing.Point(6, 77);
+            this.Hard.Name = "Hard";
+            this.Hard.Size = new System.Drawing.Size(48, 17);
+            this.Hard.TabIndex = 9;
+            this.Hard.TabStop = true;
+            this.Hard.Text = "Hard";
+            this.Hard.UseVisualStyleBackColor = true;
             // 
-            // radioButton2
+            // Intermediate
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.Location = new System.Drawing.Point(6, 54);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(85, 17);
-            this.radioButton2.TabIndex = 8;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "radioButton2";
-            this.radioButton2.UseVisualStyleBackColor = true;
+            this.Intermediate.AutoSize = true;
+            this.Intermediate.Location = new System.Drawing.Point(6, 54);
+            this.Intermediate.Name = "Intermediate";
+            this.Intermediate.Size = new System.Drawing.Size(83, 17);
+            this.Intermediate.TabIndex = 8;
+            this.Intermediate.TabStop = true;
+            this.Intermediate.Text = "Intermediate";
+            this.Intermediate.UseVisualStyleBackColor = true;
             // 
             // Confirm
             // 
@@ -198,12 +206,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(319, 252);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.Cancel);
             this.Controls.Add(this.Confirm);
             this.Controls.Add(this.Difficulty);
+            this.MaximumSize = new System.Drawing.Size(335, 291);
+            this.MinimizeBox = false;
+            this.MinimumSize = new System.Drawing.Size(335, 291);
             this.Name = "Options";
             this.ShowInTaskbar = false;
             this.Text = "Options";
@@ -225,9 +237,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.RadioButton NonStanrdard;
         private System.Windows.Forms.GroupBox Difficulty;
-        private System.Windows.Forms.RadioButton radioButton3;
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton Hard;
+        private System.Windows.Forms.RadioButton Beginner;
+        private System.Windows.Forms.RadioButton Intermediate;
         private System.Windows.Forms.Button Confirm;
         private System.Windows.Forms.Button Cancel;
         private System.Windows.Forms.Label label4;
