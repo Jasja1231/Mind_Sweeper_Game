@@ -22,4 +22,5 @@ C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab0
 C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\obj\Debug\GradedP4Lab03.Options.resources
 C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\obj\Debug\GradedP4Lab03.Properties.Resources.resources
 C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\obj\Debug\GradedP4Lab03.csproj.GenerateResource.Cache
+C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\obj\Debug\GradedP4Lab03.HighScores.resources
 C:\Users\Jaryna\Documents\Visual Studio 2013\Projects\GradedP4Lab03\GradedP4Lab03\obj\Debug\GradedP4Lab03.csprojResolveAssemblyReference.cache

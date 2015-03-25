@@ -91,7 +91,7 @@ namespace GradedP4Lab03
 
         private void Hard_CheckedChanged(object sender, EventArgs e)
         {
-            height = 10;
+            height = 10;//options
             width = 10;
             mines = 50;
         }
