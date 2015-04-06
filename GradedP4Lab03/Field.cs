@@ -13,8 +13,14 @@ namespace GradedP4Lab03
   
     public Button button =  new Button();
     public Label label = new Label();
+    public int count = 0; // for label set
 
-    bool mine = false;
+    private bool isMine = false;
+
+    public bool HasMine() {
+        return isMine; 
+    }
+    
 
     private int x;
     private int y;
@@ -39,7 +45,7 @@ namespace GradedP4Lab03
          label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
          label.Text = "MINE";
          label.BackColor = System.Drawing.Color.Red;
-         mine = true;
+         isMine = true;
      }
 
      public int GetX() { return x; }
@@ -48,7 +54,7 @@ namespace GradedP4Lab03
      public void SetX(int x1) { x = x1;}
      public void SetY(int y1) { y = y1;}
 
-    public int GetIndex(int x, int y, int width)
+    public static int GetIndex(int x, int y, int width)
     {
         return y * width + x;
     }
@@ -62,7 +68,12 @@ namespace GradedP4Lab03
             }
         else { 
             this.Controls.Clear();
-        
+            if (this.count > 0 && !isMine) {
+                label.Dock = DockStyle.Fill;
+                label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                label.Text = count.ToString();
+            }
+            //label.Text = GetIndex(x , y , Options.width).ToString();
             this.Controls.Add(label);
         }
       }

@@ -85,7 +85,7 @@ namespace GradedP4Lab03
             
             //If they exist, remove old game controls
             board.Controls.Clear();
-
+            List<Field> mine_fields = new List<Field>();
             for (int i = 0; i < cols; i++)
             {
                 for (int j = 0; j <= rows; j++)
@@ -96,12 +96,13 @@ namespace GradedP4Lab03
                     b.SetX(i); // cols
                     b.SetY(j); // rows
 
-                    int index = b.GetIndex(j , i , Options.width);
+                    int index = Field.GetIndex(j , i , Options.width);
                     try
                     {
                         if (index == list[0])
                         {
                             b.SetMine();
+                            mine_fields.Add(b);
                             list.RemoveAt(0);
                         }
                     }
@@ -115,8 +116,78 @@ namespace GradedP4Lab03
                     this.Height = 24 + 25 + (60 * rows) + 35;
                 }
             }
+
+            //Set label counts : 
+            //for every get nei list 
+            foreach (Field f in mine_fields) { 
+                List<Field> nei = GetNei(f);
+                foreach (Field d in nei) {
+                    if(d.HasMine() == false)
+                        d.count++;
+                }
+            }
         }
 
+
+        private List<Field> GetNei(Field b) 
+        {
+            List<Field> nei = new List<Field>();
+            //cells by indexes
+            int x = b.GetX();
+            int y = b.GetY();
+           int idx  = 0 ; 
+           //left
+           if (x - 1 >= 0) {
+               idx = Field.GetIndex(x - 1, y, Options.width);
+               nei.Add(cells[idx]);
+           }
+                
+            
+            //right
+            if(x + 1 <= Options.width){
+                idx = Field.GetIndex(x  + 1, y, Options.width);
+                nei.Add(cells[idx]);     
+            }
+
+            //top
+           if (y - 1 >= 0 )
+            {
+                idx = Field.GetIndex(x, y - 1, Options.width);
+                nei.Add(cells[idx]);
+            }
+            //top left
+            if (x-1 >= 0 && y-1>=0)
+            {
+                idx = Field.GetIndex(x - 1, y - 1, Options.width);
+                nei.Add(cells[idx]);
+            }
+            
+            //top right
+            if(x+1 <= Options.width && y-1 >= 0 )
+            {
+                idx = Field.GetIndex(x + 1 , y - 1, Options.width);
+                nei.Add(cells[idx]);
+            }
+            //bottom
+           if(y+1 <= Options.height)
+            {
+                idx = Field.GetIndex(x, y + 1, Options.width);
+                nei.Add(cells[idx]);
+            }
+            
+            //bottom left
+            if(x-1>=0 && y+1 <=Options.height){
+                idx = Field.GetIndex(x - 1 , y + 1, Options.width);
+                nei.Add(cells[idx]);}
+            
+            //bottom right
+            if(x + 1 <= Options.width && y+1 <= Options.height) {
+                idx = Field.GetIndex(x + 1 , y + 1, Options.width);
+                nei.Add(cells[idx]);}
+            
+
+            return nei; 
+        }
         private void ChangeNeighborsMineCount(int x, int y, int width, int height) { 
             
         }

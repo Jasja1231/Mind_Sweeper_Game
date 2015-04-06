@@ -20,6 +20,7 @@ namespace GradedP4Lab03
         public static int height = 4;
         public static int width = 4;
         public static int mines = 1;
+        
 
         private void Options_Load(object sender, EventArgs e)
         {
