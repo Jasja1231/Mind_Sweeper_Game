@@ -8,11 +8,11 @@ namespace GradedP4Lab03
     public partial class Form1 : Form
     {
         
-        public TableLayoutPanel board = new TableLayoutPanel();
+        //public TableLayoutPanel board = new TableLayoutPanel();
         private List<Field> cells = new List<Field>();
 
-        int rows = 4;
-        int cols = 4;
+       // int rows = 4;
+       //int cols = 4;
        
 
 
@@ -35,9 +35,9 @@ namespace GradedP4Lab03
        
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            board.SuspendLayout();
+            //board.SuspendLayout();
             CreateGame(Options.height, Options.width);
-            board.ResumeLayout();
+            //board.ResumeLayout();
         }
         //Get mines index
         private List<int> GetMinesIndxes(int h  , int w , int mines){
@@ -57,19 +57,21 @@ namespace GradedP4Lab03
         
 
         private void CreateGame(int rows, int cols) {
+            List<Field> mine_fields = new List<Field>();
+
             board.Dock = DockStyle.Fill;
             List<int> list = GetMinesIndxes(rows  , cols  , Options.mines);
 
             //Cleaning the currebt board
+            panelBase.Controls.Clear();
             board.ColumnStyles.Clear();
             board.RowStyles.Clear();
+            //If they exist, remove old game controls
+            board.Controls.Clear();
 
-            //set number of rows and columns +2 for menubar and tool strip
+            //set number of rows and columns 
             board.RowCount = rows;
             board.ColumnCount = cols;
-
-            //set row for toolStrip menustrip=24px tall
-            //board2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24));
 
             for (int i = 1; i <= rows; i++)
             {
@@ -80,20 +82,10 @@ namespace GradedP4Lab03
                 board.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60));
             }
 
-            //set row for toolStrip toolStrip=24px tall
-            //board.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25));
-            this.Controls.Add(board);
-
             
-            //If they exist, remove old game controls
-            board.Controls.Clear();
-
-            List<Field> mine_fields = new List<Field>();
-
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j <= cols; j++)
-                {
+             
+                for (int j = 0; j < cols; j++){
+                    for (int i = 0; i < rows; i++){
                     //Create a button
                     Field b = new Field();
 
@@ -112,17 +104,23 @@ namespace GradedP4Lab03
                             list.RemoveAt(0);
                         }
                     }
-                    catch { }
+                    catch {}
                     b.Font = new Font("Microsoft Sans Serif", 10f, FontStyle.Regular);
                     
-                    board.Controls.Add(b, i, j); // i  - rows , j - colums
-
-                    //make window proper size
-                    this.Width = 60 * cols + 15;
-                    this.Height = 24 + 25 + (60 * rows) + 35;
+                    board.Controls.Add(b, j/*column*/, i); // i  - rows , j - colums
                 }
             }
 
+            //make window proper size
+            this.Width = 60 * cols + 15;
+            this.Height = 24 + 25 + (60 * rows) + 35;
+
+            this.Dock = DockStyle.Fill;
+            Rectangle r = new Rectangle();
+            board.RectangleToClient(r);
+            panelBase.Size = r.Size;
+
+            panelBase.Controls.Add(board);
             //Set label counts : 
             //for every get nei list 
             foreach (Field f in mine_fields) { 
@@ -142,7 +140,7 @@ namespace GradedP4Lab03
             //cells by indexes
             int col = b.GetCol();
             int row = b.GetRow();
-           int idx  = 0 ; 
+            int idx  = 0 ; 
            //left
            if ( col - 1 >= 0) {
                idx = Field.GetIndex(row, col-1 , Options.width);

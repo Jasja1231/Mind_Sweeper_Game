@@ -58,7 +58,7 @@ namespace GradedP4Lab03
     //Required parameters : Row , Column , Width 
     public static int GetIndex(int rowx, int co, int width)
     {
-        return co * width + rowx;
+        return rowx * width + co;
     }
 
     //when button pressed
@@ -76,7 +76,7 @@ namespace GradedP4Lab03
                 label.Text = count.ToString();
             }
            else
-            label.Text = column.ToString() + " " + row.ToString() + " i:" + GetIndex(row, column, Options.width).ToString();
+            label.Text =  row.ToString() + " " + column.ToString() + " i:" + GetIndex(row, column, Options.width).ToString();
             this.Controls.Add(label);
         }
       }
