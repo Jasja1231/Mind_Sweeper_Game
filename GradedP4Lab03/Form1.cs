@@ -59,15 +59,17 @@ namespace GradedP4Lab03
         private void CreateGame(int rows, int cols) {
             board.Dock = DockStyle.Fill;
             List<int> list = GetMinesIndxes(rows  , cols  , Options.mines);
+
             //Cleaning the currebt board
             board.ColumnStyles.Clear();
             board.RowStyles.Clear();
 
             //set number of rows and columns +2 for menubar and tool strip
-            board.RowCount = rows + 2;
+            board.RowCount = rows;
             board.ColumnCount = cols;
+
             //set row for toolStrip menustrip=24px tall
-            board.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24));
+            //board2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 24));
 
             for (int i = 1; i <= rows; i++)
             {
@@ -79,25 +81,29 @@ namespace GradedP4Lab03
             }
 
             //set row for toolStrip toolStrip=24px tall
-            board.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25));
+            //board.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25));
             this.Controls.Add(board);
 
             
             //If they exist, remove old game controls
             board.Controls.Clear();
+
             List<Field> mine_fields = new List<Field>();
-            for (int i = 0; i < cols; i++)
+
+            for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j <= rows; j++)
+                for (int j = 0; j <= cols; j++)
                 {
                     //Create a button
                     Field b = new Field();
-                    cells.Add(b);  //adding by indexes
-                    b.SetX(i); // cols
-                    b.SetY(j); // rows
 
-                    int index = Field.GetIndex(j , i , Options.width);
-                    try
+                    b.SetCol(j); 
+                    b.SetRow(i);  
+
+                    int index = Field.GetIndex(i , j, Options.width);
+                    cells.Add(b); //adding by indexes one by one
+
+                   try
                     {
                         if (index == list[0])
                         {
@@ -109,7 +115,7 @@ namespace GradedP4Lab03
                     catch { }
                     b.Font = new Font("Microsoft Sans Serif", 10f, FontStyle.Regular);
                     
-                    board.Controls.Add(b, j, i);
+                    board.Controls.Add(b, i, j); // i  - rows , j - colums
 
                     //make window proper size
                     this.Width = 60 * cols + 15;
@@ -126,6 +132,7 @@ namespace GradedP4Lab03
                         d.count++;
                 }
             }
+           
         }
 
 
@@ -133,57 +140,58 @@ namespace GradedP4Lab03
         {
             List<Field> nei = new List<Field>();
             //cells by indexes
-            int x = b.GetX();
-            int y = b.GetY();
+            int col = b.GetCol();
+            int row = b.GetRow();
            int idx  = 0 ; 
            //left
-           if (x - 1 >= 0) {
-               idx = Field.GetIndex(x - 1, y, Options.width);
+           if ( col - 1 >= 0) {
+               idx = Field.GetIndex(row, col-1 , Options.width);
                nei.Add(cells[idx]);
            }
                 
             
             //right
-            if(x + 1 <= Options.width){
-                idx = Field.GetIndex(x  + 1, y, Options.width);
+            if(col + 1 < Options.width){
+                idx = Field.GetIndex(row, col + 1, Options.width);
                 nei.Add(cells[idx]);     
             }
 
             //top
-           if (y - 1 >= 0 )
+           if (row - 1 >= 0 )
             {
-                idx = Field.GetIndex(x, y - 1, Options.width);
+                idx = Field.GetIndex(row - 1, col, Options.width);
                 nei.Add(cells[idx]);
             }
             //top left
-            if (x-1 >= 0 && y-1>=0)
+            if (col - 1 >= 0 && row -1>=0)
             {
-                idx = Field.GetIndex(x - 1, y - 1, Options.width);
+                idx = Field.GetIndex(row - 1, col - 1, Options.width);
                 nei.Add(cells[idx]);
             }
             
             //top right
-            if(x+1 <= Options.width && y-1 >= 0 )
+            if(col+1 < Options.width && row - 1 >= 0 )
             {
-                idx = Field.GetIndex(x + 1 , y - 1, Options.width);
+                idx = Field.GetIndex(row - 1 , col + 1, Options.width);
                 nei.Add(cells[idx]);
             }
             //bottom
-           if(y+1 <= Options.height)
+           if(row +1 < Options.height)
             {
-                idx = Field.GetIndex(x, y + 1, Options.width);
+                idx = Field.GetIndex(row+1, col , Options.width);
                 nei.Add(cells[idx]);
             }
             
             //bottom left
-            if(x-1>=0 && y+1 <=Options.height){
-                idx = Field.GetIndex(x - 1 , y + 1, Options.width);
+            if(col - 1>=0 && row + 1 < Options.height){
+                idx = Field.GetIndex(row+1 , col -1, Options.width);
                 nei.Add(cells[idx]);}
             
             //bottom right
-            if(x + 1 <= Options.width && y+1 <= Options.height) {
-                idx = Field.GetIndex(x + 1 , y + 1, Options.width);
-                nei.Add(cells[idx]);}
+            if(row + 1 < Options.width && col+1 < Options.height) {
+                idx = Field.GetIndex(row + 1 , col + 1, Options.width);
+                nei.Add(cells[idx]) ; //Should be NO -1
+            }
             
 
             return nei; 

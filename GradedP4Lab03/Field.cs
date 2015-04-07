@@ -22,8 +22,8 @@ namespace GradedP4Lab03
     }
     
 
-    private int x;
-    private int y;
+    private int column;
+    private int row;
 
     public int mine_count = 0;
 
@@ -48,15 +48,17 @@ namespace GradedP4Lab03
          isMine = true;
      }
 
-     public int GetX() { return x; }
-     public int GetY() { return y; }
+     public int GetCol() { return column; }
+     public int GetRow() { return row; }
 
-     public void SetX(int x1) { x = x1;}
-     public void SetY(int y1) { y = y1;}
+     public void SetCol(int val) { column = val; }
+     public void SetRow(int val) { row    = val; }
 
-    public static int GetIndex(int x, int y, int width)
+
+    //Required parameters : Row , Column , Width 
+    public static int GetIndex(int rowx, int co, int width)
     {
-        return y * width + x;
+        return co * width + rowx;
     }
 
     //when button pressed
@@ -68,12 +70,13 @@ namespace GradedP4Lab03
             }
         else { 
             this.Controls.Clear();
-            if (this.count > 0 && !isMine) {
+           if (this.count > 0 && !isMine) {
                 label.Dock = DockStyle.Fill;
                 label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
                 label.Text = count.ToString();
             }
-            //label.Text = GetIndex(x , y , Options.width).ToString();
+           else
+            label.Text = column.ToString() + " " + row.ToString() + " i:" + GetIndex(row, column, Options.width).ToString();
             this.Controls.Add(label);
         }
       }
