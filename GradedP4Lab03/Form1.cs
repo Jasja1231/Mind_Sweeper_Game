@@ -82,10 +82,11 @@ namespace GradedP4Lab03
                 board.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 60));
             }
 
-            
-             
+
+            for (int i = 0; i < rows; i++)
+            {
                 for (int j = 0; j < cols; j++){
-                    for (int i = 0; i < rows; i++){
+                    
                     //Create a button
                     Field b = new Field();
 
