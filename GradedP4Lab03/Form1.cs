@@ -324,7 +324,7 @@ namespace GradedP4Lab03
                     }
 
                     //bottom right
-                    if (row + 1 < Options.width && col + 1 < Options.height)
+                    if (row + 1 < Options.height && col + 1 < Options.width)
                     {
                         idx = Field.GetIndex(row + 1, col + 1, Options.width);
                         if (cells[idx].count == 0 && cells[idx].check == false) { 
@@ -342,9 +342,9 @@ namespace GradedP4Lab03
         private int recursion(Field field) { 
             //for field we are searching its nei with count 
             List<Field> nei = GetNeiWithCountZero(field);
-            if (field.HasMine()==false)
+            if (field.HasMine() == false)
             {
-               //field.Field_Pressed(); //better se check after it is done!!!!!!
+              // field.Field_Pressed(); //better se check after it is done!!!!!!
                field.check = true;
                foreach (Field fil in nei)
                {
