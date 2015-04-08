@@ -30,6 +30,11 @@ namespace GradedP4Lab03
         private void Options_Load(object sender, EventArgs e)
         {
             nameBox.Text = name;
+
+            inputBox1.Text = height.ToString();
+            inputBox2.Text = width.ToString();
+            inputBox3.Text = mines.ToString();
+
             Cancel.Click += new EventHandler(Cancel_Click);
             Confirm.Click += new EventHandler(Confirm_Click);
         }

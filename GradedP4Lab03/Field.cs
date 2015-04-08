@@ -35,8 +35,35 @@ namespace GradedP4Lab03
          this.Dock = DockStyle.Fill;
          this.Controls.Add(button);
 
+         this.button.MouseEnter += Button_enter;
+         this.button.MouseLeave += Button_leave;
+
         }
 
+
+    private void Button_enter(object sender, EventArgs e) {
+        Form f = this.FindForm();
+        f.SuspendLayout();
+        if(!flag)
+            this.button.BackColor = System.Drawing.SystemColors.ActiveCaption;
+        else if (flag)
+            this.button.BackColor = System.Drawing.Color.OrangeRed;
+        else if (HasMine())
+            this.button.BackColor = System.Drawing.Color.Red;
+        f.ResumeLayout();
+
+    }
+
+         private void Button_leave(object sender, EventArgs e)
+        {
+            Form f = this.FindForm();
+            f.SuspendLayout();
+             if(!flag)
+                this.button.ResetBackColor();
+             else if (flag)
+                 this.button.BackColor = System.Drawing.Color.Red;
+            f.ResumeLayout();
+        }
      public void SetMine() {
          label.Dock = DockStyle.Fill;
          label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
