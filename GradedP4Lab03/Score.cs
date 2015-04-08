@@ -12,11 +12,11 @@ namespace GradedP4Lab03
         private int time;
         private string name;
 
-        public ListViewItem create_item()
-        {
+        public ListViewItem Create_Item(){
             ListViewItem item = new ListViewItem(new[] { this.Name, string.Format("{0:00}:{1:00}:{2:00}", this.Time / 3600, (this.Time / 60) % 60, this.Time % 60) });
             return item;
         }
+
         public int Time
         {
             get

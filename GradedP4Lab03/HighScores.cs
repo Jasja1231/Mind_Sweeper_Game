@@ -31,24 +31,21 @@ namespace GradedP4Lab03
 
             foreach (Score score in scores)
             {
-                ListViewItem item = score.create_item();
+                ListViewItem item = score.Create_Item();
                 listView.Items.Add(item);
             }
         }
+
         public static void add_score(Score score)
         {
-
             if (scores.Count < 10)
                 scores.Add(score);
-
-            else if (score.Time < scores.ElementAt(scores.Count - 1).Time && scores.Count == 10)
-            {
+            else if (score.Time < scores.ElementAt(scores.Count - 1).Time && scores.Count == 10){
                 scores.Sort(Score.CompareTimes);
                 scores.RemoveAt(scores.Count - 1);
                 scores.Add(score);
             }
-
-        }
+         }
 
 
  

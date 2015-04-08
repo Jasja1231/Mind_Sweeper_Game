@@ -228,7 +228,7 @@ namespace GradedP4Lab03
                 //nei.Add(cells[idx]) ; 
                 if (cells[idx].HasMine() == false)
                 {
-                    cells[idx].count+= 1 ;
+                    cells[idx].count += 1 ;
                 }
             }
              //return nei; 
@@ -245,15 +245,7 @@ namespace GradedP4Lab03
             op.ShowDialog();
         }
 
-        private void startGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void Form1_Load(object sender, EventArgs e)
-        {
-
-        }
+       
 
         private void Form1_Closing(object sender, FormClosingEventArgs e)
         {
@@ -342,8 +334,16 @@ namespace GradedP4Lab03
         {
            TimeLabel.Margin = new Padding((this.Width - 160), 0, 0, 0);
         }
-      
-       
+
+        private void startGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
 
 
     }
