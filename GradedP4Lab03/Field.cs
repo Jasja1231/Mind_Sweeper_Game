@@ -14,6 +14,7 @@ namespace GradedP4Lab03
     public Button button =  new Button();
     public Label label = new Label();
     public int count = 0; // for label set
+    public int index = -1;
 
     private bool isMine = false;
 
@@ -70,13 +71,13 @@ namespace GradedP4Lab03
             }
         else { 
             this.Controls.Clear();
-           if (this.count > 0 && !isMine) {
+            if (this.count > 0 && !isMine) {
                 label.Dock = DockStyle.Fill;
                 label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
                 label.Text = count.ToString();
             }
-           else
-            label.Text =  row.ToString() + " " + column.ToString() + " i:" + GetIndex(row, column, Options.width).ToString();
+          // else
+          //  label.Text =  row.ToString() + " " + column.ToString() + " i:" + GetIndex(row, column, Options.width).ToString();
             this.Controls.Add(label);
         }
       }

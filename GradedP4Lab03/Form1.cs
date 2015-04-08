@@ -58,15 +58,15 @@ namespace GradedP4Lab03
 
         private void CreateGame(int rows, int cols) {
             List<Field> mine_fields = new List<Field>();
-
+            List<int> list = GetMinesIndxes(rows, cols, Options.mines);
             board.Dock = DockStyle.Fill;
-            List<int> list = GetMinesIndxes(rows  , cols  , Options.mines);
+            cells.Clear();
+            
 
             //Cleaning the currebt board
             panelBase.Controls.Clear();
             board.ColumnStyles.Clear();
             board.RowStyles.Clear();
-            //If they exist, remove old game controls
             board.Controls.Clear();
 
             //set number of rows and columns 
@@ -83,17 +83,19 @@ namespace GradedP4Lab03
             }
 
 
-            for (int i = 0; i < rows; i++)
-            {
+            for (int i = 0; i < rows; i++){
                 for (int j = 0; j < cols; j++){
                     
                     //Create a button
                     Field b = new Field();
 
-                    b.SetCol(j); 
-                    b.SetRow(i);  
+                    int index = Field.GetIndex(i, j, Options.width);
 
-                    int index = Field.GetIndex(i , j, Options.width);
+                    b.SetCol(j); 
+                    b.SetRow(i);
+                    b.index = index;
+                    b.Font = new Font("Microsoft Sans Serif", 10f, FontStyle.Regular);
+                   
                     cells.Add(b); //adding by indexes one by one
 
                    try
@@ -106,8 +108,6 @@ namespace GradedP4Lab03
                         }
                     }
                     catch {}
-                    b.Font = new Font("Microsoft Sans Serif", 10f, FontStyle.Regular);
-                    
                     board.Controls.Add(b, j/*column*/, i); // i  - rows , j - colums
                 }
             }
@@ -116,28 +116,27 @@ namespace GradedP4Lab03
             this.Width = 60 * cols + 15;
             this.Height = 24 + 25 + (60 * rows) + 35;
 
-            this.Dock = DockStyle.Fill;
-            Rectangle r = new Rectangle();
-            board.RectangleToClient(r);
-            panelBase.Size = r.Size;
+           
 
             panelBase.Controls.Add(board);
+
             //Set label counts : 
             //for every get nei list 
-            foreach (Field f in mine_fields) { 
-                List<Field> nei = GetNei(f);
-                foreach (Field d in nei) {
-                    if(d.HasMine() == false)
-                        d.count++;
+            foreach (Field f in mine_fields) {
+                GetNei(f);
+               //List<Field> nei = GetNei(f);
+               // foreach (Field d in nei) {
+               //    if(d.HasMine() == false)
+               //   d.count++;
+               //   }
                 }
-            }
            
         }
 
 
-        private List<Field> GetNei(Field b) 
+        private /*List<Field>*/void GetNei(Field b) 
         {
-            List<Field> nei = new List<Field>();
+            //List<Field> nei = new List<Field>();
             //cells by indexes
             int col = b.GetCol();
             int row = b.GetRow();
@@ -145,56 +144,88 @@ namespace GradedP4Lab03
            //left
            if ( col - 1 >= 0) {
                idx = Field.GetIndex(row, col-1 , Options.width);
-               nei.Add(cells[idx]);
+               //nei.Add(cells[idx]);
+                if(cells[idx].HasMine() == false){
+                        cells[idx].count += 1 ;
+                    }
            }
                 
             
             //right
             if(col + 1 < Options.width){
                 idx = Field.GetIndex(row, col + 1, Options.width);
-                nei.Add(cells[idx]);     
+                //nei.Add(cells[idx]);     
+                if (cells[idx].HasMine() == false)
+                {
+                    cells[idx].count += 1;
+                }
             }
 
             //top
            if (row - 1 >= 0 )
             {
                 idx = Field.GetIndex(row - 1, col, Options.width);
-                nei.Add(cells[idx]);
+                //nei.Add(cells[idx]);
+                if (cells[idx].HasMine() == false)
+                {
+                    cells[idx].count += 1;
+                }
             }
             //top left
             if (col - 1 >= 0 && row -1>=0)
             {
                 idx = Field.GetIndex(row - 1, col - 1, Options.width);
-                nei.Add(cells[idx]);
+                //nei.Add(cells[idx]);
+                if (cells[idx].HasMine() == false)
+                {
+                    cells[idx].count += 1;
+                }
             }
             
             //top right
             if(col+1 < Options.width && row - 1 >= 0 )
             {
                 idx = Field.GetIndex(row - 1 , col + 1, Options.width);
-                nei.Add(cells[idx]);
+                //nei.Add(cells[idx]);
+                if (cells[idx].HasMine() == false)
+                {
+                    cells[idx].count += 1;
+                }
             }
             //bottom
            if(row +1 < Options.height)
             {
                 idx = Field.GetIndex(row+1, col , Options.width);
-                nei.Add(cells[idx]);
+                //nei.Add(cells[idx]);
+                if (cells[idx].HasMine() == false)
+                {
+                    cells[idx].count += 1;
+                }
             }
             
             //bottom left
             if(col - 1>=0 && row + 1 < Options.height){
                 idx = Field.GetIndex(row+1 , col -1, Options.width);
-                nei.Add(cells[idx]);}
+               // nei.Add(cells[idx]);
+                if (cells[idx].HasMine() == false)
+                {
+                    cells[idx].count += 1;
+                }
+            }
             
             //bottom right
             if(row + 1 < Options.width && col+1 < Options.height) {
                 idx = Field.GetIndex(row + 1 , col + 1, Options.width);
-                nei.Add(cells[idx]) ; //Should be NO -1
+                //nei.Add(cells[idx]) ; 
+                if (cells[idx].HasMine() == false)
+                {
+                    cells[idx].count+= 1 ;
+                }
             }
-            
-
-            return nei; 
+             //return nei; 
         }
+
+
         private void ChangeNeighborsMineCount(int x, int y, int width, int height) { 
             
         }
@@ -214,6 +245,25 @@ namespace GradedP4Lab03
         {
 
         }
+
+        private void Form1_Closing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult msgresult = MessageBox.Show("Are You sure?", "Quit?", MessageBoxButtons.OKCancel);
+
+            if (msgresult == DialogResult.Cancel)
+            {
+                e.Cancel = true;
+            }
+
+
+        }
+
+        private void highScoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            HighScores h = new HighScores();
+            h.ShowDialog();
+        }
+
       
     }
 }
