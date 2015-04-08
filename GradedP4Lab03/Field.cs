@@ -17,13 +17,15 @@ namespace GradedP4Lab03
     public int index = -1;
     public int mine_count = 0;
     public bool flag = false; //marked mine field )) 
-    //public bool uncovered = false;
+    public bool check = false;
+
+    public static bool run = false;
+    public static Field curr;
+
 
     private int column;
     private int row;
     private bool isMine = false;
-
-   
 
     public Field()
         {
@@ -37,7 +39,6 @@ namespace GradedP4Lab03
 
          this.button.MouseEnter += Button_enter;
          this.button.MouseLeave += Button_leave;
-
         }
 
 
@@ -82,6 +83,13 @@ namespace GradedP4Lab03
     //Required parameters : Row , Column , Width 
     public static int GetIndex(int rowx, int co, int width){return rowx * width + co;}
 
+
+    public void Field_Pressed(){
+        this.Controls.Remove(this.button);
+        this.Controls.Add(this.label);
+        Form1.fields_remaining--;
+    }
+
     //when button pressed
     public  void Field_Click(object sender, EventArgs e)
     {
@@ -115,25 +123,31 @@ namespace GradedP4Lab03
                 }
             }
         //left mouse button pressed
-        else { 
-            this.Controls.Clear();
-            if (!isMine && !flag) {
-                if (this.count > 0) {
-                    //not  a mine and has a mine neightbor
-                    label.Dock = DockStyle.Fill;
-                    label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-                    label.Text = count.ToString();
+        else {
+            if (!flag){
+                this.Controls.Clear();
+                if (!isMine && !flag) {
+                    if (this.count > 0) {
+                        //not  a mine and has a mine neightbor
+                        label.Dock = DockStyle.Fill;
+                        label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                        label.Text = count.ToString();
+                    }
+                    else if (this.count == 0) { 
+                        //USE OF RECURSION FUNCTION
+                        curr = this;
+                        run = true;
+                      }
+                    Form1.fields_remaining--;
                 }
-                Form1.fields_remaining--;
+                else
+                    if (HasMine()){
+                        Form1.lost = true;
+                    }
+                this.Controls.Add(label);
             }
-            else
-                if (HasMine()){
-                    Form1.lost = true;
-                }
-            this.Controls.Add(label);
-        }
+          }
       }
-
-
+    
     }
 }

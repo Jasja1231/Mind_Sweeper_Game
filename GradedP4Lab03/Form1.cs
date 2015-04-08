@@ -17,8 +17,13 @@ namespace GradedP4Lab03
         public static int mines_displayed;
         public static int mines_remaining;
 
+        
+
         public static bool won = false;
         public static bool lost = false;
+
+        
+
         private static bool timers_added = false;
 
         private int game_time = 0;
@@ -47,9 +52,9 @@ namespace GradedP4Lab03
        
         private void newGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //board.SuspendLayout();
+            board.SuspendLayout();
             CreateGame(Options.height, Options.width);
-            //board.ResumeLayout();
+            board.ResumeLayout();
         }
         //Get mines index
         private List<int> GetMinesIndxes(int h  , int w , int mines){
@@ -62,7 +67,7 @@ namespace GradedP4Lab03
                 else
                     i--;
             }
-            l.Sort();  //????????????????????????????????????????????
+            l.Sort();  
             return l;
         }
           
@@ -139,13 +144,13 @@ namespace GradedP4Lab03
             //Set label counts : 
             //for every get nei list 
             foreach (Field f in mine_fields) {
-                GetNei(f);
+                SetNeiCount(f);
              }
            
         }
 
 
-        private void GetNei(Field b) 
+        private void SetNeiCount(Field b) 
         {
             int col = b.GetCol();
             int row = b.GetRow();
@@ -234,10 +239,124 @@ namespace GradedP4Lab03
              //return nei; 
         }
 
+        //return list of all neighbors that are not neighbors of mine and are connected to field b 
+        private List<Field> GetNeiWithCountZero(Field b)
+        {
+            List<Field> nei = new List<Field>();
+                int col = b.GetCol();
+                int row = b.GetRow();
+                int idx = b.index;
+                if (b.count == 0)
+                {
+                    //left
+                    if (col - 1 >= 0)
+                    {
+                        idx = Field.GetIndex(row, col - 1, Options.width);
+                        if (cells[idx].count == 0 && cells[idx].check == false) {
+                            nei.Add(cells[idx]); 
+                            cells[idx].Field_Pressed();
+                            cells[idx].check = true;
+                        }
+                    }
 
-        private void ChangeNeighborsMineCount(int x, int y, int width, int height) { 
-            
+
+                    //right
+                    if (col + 1 < Options.width)
+                    {
+                        idx = Field.GetIndex(row, col + 1, Options.width);
+                        if (cells[idx].count == 0 && cells[idx].check == false) {
+                            nei.Add(cells[idx]); 
+                            cells[idx].Field_Pressed();
+                            cells[idx].check = true; 
+                        }
+                    }
+
+                    //top
+                    if (row - 1 >= 0)
+                    {
+                        idx = Field.GetIndex(row - 1, col, Options.width);
+                        if (cells[idx].count == 0 && cells[idx].check == false) {
+                            nei.Add(cells[idx]); 
+                            cells[idx].Field_Pressed(); 
+                            cells[idx].check = true;
+                        }
+                    }
+                    //top left
+                    if (col - 1 >= 0 && row - 1 >= 0)
+                    {
+                        idx = Field.GetIndex(row - 1, col - 1, Options.width);
+                        if (cells[idx].count == 0 && cells[idx].check == false) {
+                            nei.Add(cells[idx]); 
+                            cells[idx].Field_Pressed();
+                            cells[idx].check = true; }
+                    }
+
+                    //top right
+                    if (col + 1 < Options.width && row - 1 >= 0)
+                    {
+                        idx = Field.GetIndex(row - 1, col + 1, Options.width);
+                        if (cells[idx].count == 0 && cells[idx].check == false) {
+                            nei.Add(cells[idx]); 
+                            cells[idx].Field_Pressed();
+                            cells[idx].check = true;
+                        }
+                    }
+                    //bottom
+                    if (row + 1 < Options.height)
+                    {
+                        idx = Field.GetIndex(row + 1, col, Options.width);
+                        if (cells[idx].count == 0 && cells[idx].check == false) {
+                            nei.Add(cells[idx]); 
+                            cells[idx].Field_Pressed(); 
+                            cells[idx].check = true;
+                        }
+                    }
+
+                    //bottom left
+                    if (col - 1 >= 0 && row + 1 < Options.height)
+                    {
+                        idx = Field.GetIndex(row + 1, col - 1, Options.width);
+                        if (cells[idx].count == 0 && cells[idx].check == false) {
+                            nei.Add(cells[idx]); 
+                            cells[idx].Field_Pressed() ; 
+                            cells[idx].check = true; 
+                        }
+                    }
+
+                    //bottom right
+                    if (row + 1 < Options.width && col + 1 < Options.height)
+                    {
+                        idx = Field.GetIndex(row + 1, col + 1, Options.width);
+                        if (cells[idx].count == 0 && cells[idx].check == false) { 
+                            nei.Add(cells[idx]); 
+                            cells[idx].Field_Pressed();
+                            cells[idx].check = true;
+                        }
+                    }
+            }
+            return nei;
         }
+
+        
+
+        private int recursion(Field field) { 
+            //for field we are searching its nei with count 
+            List<Field> nei = GetNeiWithCountZero(field);
+            if (field.HasMine()==false)
+            {
+               //field.Field_Pressed(); //better se check after it is done!!!!!!
+               field.check = true;
+               foreach (Field fil in nei)
+               {
+                   recursion(fil);
+               }
+            }
+               //for every neighbor (count==0) do the same thing - open them
+            return 1;
+        }
+
+
+        
 
         private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
         { 
@@ -295,9 +414,18 @@ namespace GradedP4Lab03
                     }
 
                 }
+               if(Field.run) {
+                    recursion(Field.curr);
+                    Field.run = false;
+                }
             }
             else
             {
+                if (Field.run)
+                {
+                    recursion(Field.curr);
+                    Field.run = false;
+                }
                 ++game_time;
                 TimeLabel.Text = string.Format("{0:00}:{1:00}:{2:00}", game_time / 3600, (game_time / 60) % 60, game_time % 60);
             }
@@ -345,6 +473,10 @@ namespace GradedP4Lab03
 
         }
 
+        private void ChangeNeighborsMineCount(int x, int y, int width, int height)
+        {
+
+        }
 
     }
 }
