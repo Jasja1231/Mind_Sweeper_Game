@@ -33,11 +33,14 @@
             this.newGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.highScoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.MinesToolStrip = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TimeLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.panelBase = new System.Windows.Forms.Panel();
             this.board = new System.Windows.Forms.TableLayoutPanel();
-            this.highScoresToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
+            this.statusStrip1.SuspendLayout();
             this.panelBase.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -84,13 +87,37 @@
             this.optionsToolStripMenuItem.Text = "Options";
             this.optionsToolStripMenuItem.Click += new System.EventHandler(this.optionsToolStripMenuItem_Click);
             // 
+            // highScoresToolStripMenuItem
+            // 
+            this.highScoresToolStripMenuItem.Name = "highScoresToolStripMenuItem";
+            this.highScoresToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
+            this.highScoresToolStripMenuItem.Text = "HighScores";
+            this.highScoresToolStripMenuItem.Click += new System.EventHandler(this.highScoresToolStripMenuItem_Click);
+            // 
             // statusStrip1
             // 
+            this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.MinesToolStrip,
+            this.TimeLabel});
             this.statusStrip1.Location = new System.Drawing.Point(0, 293);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(349, 22);
             this.statusStrip1.TabIndex = 1;
             this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip1.AutoSizeChanged += new System.EventHandler(this.statusStrip1_SizeChanged);
+            // 
+            // MinesToolStrip
+            // 
+            this.MinesToolStrip.Name = "MinesToolStrip";
+            this.MinesToolStrip.Size = new System.Drawing.Size(119, 17);
+            this.MinesToolStrip.Text = "Please start the game";
+            // 
+            // TimeLabel
+            // 
+            this.TimeLabel.Name = "TimeLabel";
+            this.TimeLabel.Size = new System.Drawing.Size(49, 17);
+            this.TimeLabel.Text = "00:00:00";
+            this.TimeLabel.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // panelBase
             // 
@@ -115,13 +142,6 @@
             this.board.Size = new System.Drawing.Size(349, 269);
             this.board.TabIndex = 0;
             // 
-            // highScoresToolStripMenuItem
-            // 
-            this.highScoresToolStripMenuItem.Name = "highScoresToolStripMenuItem";
-            this.highScoresToolStripMenuItem.Size = new System.Drawing.Size(79, 20);
-            this.highScoresToolStripMenuItem.Text = "HighScores";
-            this.highScoresToolStripMenuItem.Click += new System.EventHandler(this.highScoresToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -137,6 +157,8 @@
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.statusStrip1.ResumeLayout(false);
+            this.statusStrip1.PerformLayout();
             this.panelBase.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -154,6 +176,8 @@
         private System.Windows.Forms.Panel panelBase;
         private System.Windows.Forms.TableLayoutPanel board;
         private System.Windows.Forms.ToolStripMenuItem highScoresToolStripMenuItem;
+        private System.Windows.Forms.ToolStripStatusLabel MinesToolStrip;
+        private System.Windows.Forms.ToolStripStatusLabel TimeLabel;
     }
 }
 

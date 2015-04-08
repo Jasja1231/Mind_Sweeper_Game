@@ -20,7 +20,12 @@ namespace GradedP4Lab03
         public static int height = 4;
         public static int width = 4;
         public static int mines = 1;
-        
+
+
+        public static int GetMines() { return mines; }
+        public static string name = "Anonymous";
+
+        public static string GetName() { return name; }
 
         private void Options_Load(object sender, EventArgs e)
         {
@@ -60,7 +65,7 @@ namespace GradedP4Lab03
                     Show_Error();
                 }
            }
-
+            name = nameBox.Text;
             this.Close();
         }
 

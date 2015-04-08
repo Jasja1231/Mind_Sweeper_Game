@@ -10,6 +10,18 @@ namespace GradedP4Lab03
         
         //public TableLayoutPanel board = new TableLayoutPanel();
         private List<Field> cells = new List<Field>();
+        Timer time = new Timer();
+        Timer second_timer = new Timer();
+
+        public static int fields_remaining;
+        public static int mines_displayed;
+        public static int mines_remaining;
+
+        public static bool won = false;
+        public static bool lost = false;
+        private static bool timers_added = false;
+
+        private int game_time = 0;
 
        // int rows = 4;
        //int cols = 4;
@@ -59,11 +71,15 @@ namespace GradedP4Lab03
         private void CreateGame(int rows, int cols) {
             List<Field> mine_fields = new List<Field>();
             List<int> list = GetMinesIndxes(rows, cols, Options.mines);
-            board.Dock = DockStyle.Fill;
-            cells.Clear();
+
             
+            board.Dock = DockStyle.Fill;
+           
+
+            TimerEx();
 
             //Cleaning the currebt board
+            cells.Clear();
             panelBase.Controls.Clear();
             board.ColumnStyles.Clear();
             board.RowStyles.Clear();
@@ -124,20 +140,13 @@ namespace GradedP4Lab03
             //for every get nei list 
             foreach (Field f in mine_fields) {
                 GetNei(f);
-               //List<Field> nei = GetNei(f);
-               // foreach (Field d in nei) {
-               //    if(d.HasMine() == false)
-               //   d.count++;
-               //   }
-                }
+             }
            
         }
 
 
-        private /*List<Field>*/void GetNei(Field b) 
+        private void GetNei(Field b) 
         {
-            //List<Field> nei = new List<Field>();
-            //cells by indexes
             int col = b.GetCol();
             int row = b.GetRow();
             int idx  = 0 ; 
@@ -254,8 +263,6 @@ namespace GradedP4Lab03
             {
                 e.Cancel = true;
             }
-
-
         }
 
         private void highScoresToolStripMenuItem_Click(object sender, EventArgs e)
@@ -264,7 +271,81 @@ namespace GradedP4Lab03
             h.ShowDialog();
         }
 
+
+        //for timer event 
+        private void time_Tick(object sender, EventArgs e)
+        {
+            if (sender == time)
+            {
+                MinesToolStrip.Text = "Mines left: " + mines_displayed.ToString();
+                if (fields_remaining == 0)
+                {
+                    time.Stop();
+                    second_timer.Stop();
+                    MessageBox.Show(this, "You won!", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    Score score = new Score();
+                    score.Time = game_time;
+                    score.Name = Options.GetName();
+                    HighScores.add_score(score);
+                    foreach (Field field in cells)
+                    {
+                        field.button.MouseDown -= field.Field_Click;
+                    }
+                }
+                if (lost)
+                {
+                    time.Stop();
+                    second_timer.Stop();
+                    MessageBox.Show(this, "You lost!", "", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    foreach (Field field in cells)
+                    {
+                        field.button.MouseDown -= field.Field_Click;
+                    }
+
+                }
+            }
+            else
+            {
+                ++game_time;
+                TimeLabel.Text = string.Format("{0:00}:{1:00}:{2:00}", game_time / 3600, (game_time / 60) % 60, game_time % 60);
+            }
+
+        }
+
+
+        //For game start timer!
+        private void TimerEx(){
+            game_time = 0;
+            if (!timers_added)
+            {
+                timers_added = true;
+                time.Tick += time_Tick;
+                second_timer.Tick += time_Tick;
+            }
+            second_timer.Interval = 1000;
+            second_timer.Start();
+            time.Start();
+            mines_remaining = mines_displayed = Options.mines;
+            
+            won = false;
+            lost = false;
+
+            MinesToolStrip.Text = "Mines left: " + Options.GetMines().ToString();
+
+           fields_remaining = Options.width * Options.height - mines_remaining;
+
+           TimeLabel.Text = "00:00:00";
+        }
+
+       
+        private void statusStrip1_SizeChanged(object sender, EventArgs e)
+        {
+           TimeLabel.Margin = new Padding((this.Width - 160), 0, 0, 0);
+        }
       
+       
+
+
     }
 }
 

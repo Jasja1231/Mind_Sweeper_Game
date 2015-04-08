@@ -15,21 +15,17 @@ namespace GradedP4Lab03
     public Label label = new Label();
     public int count = 0; // for label set
     public int index = -1;
-
-    private bool isMine = false;
-
-    public bool HasMine() {
-        return isMine; 
-    }
-    
+    public int mine_count = 0;
+    public bool flag = false; //marked mine field )) 
+    //public bool uncovered = false;
 
     private int column;
     private int row;
+    private bool isMine = false;
 
-    public int mine_count = 0;
+   
 
-    
-     public Field()
+    public Field()
         {
          this.button.MouseDown += Field_Click;
 
@@ -47,46 +43,69 @@ namespace GradedP4Lab03
          label.Text = "MINE";
          label.BackColor = System.Drawing.Color.Red;
          isMine = true;
-     }
+ }
 
      public int GetCol() { return column; }
      public int GetRow() { return row; }
-
      public void SetCol(int val) { column = val; }
      public void SetRow(int val) { row    = val; }
-
+     public bool HasMine() { return isMine; }
+    
 
     //Required parameters : Row , Column , Width 
-    public static int GetIndex(int rowx, int co, int width)
-    {
-        return rowx * width + co;
-    }
+    public static int GetIndex(int rowx, int co, int width){return rowx * width + co;}
 
     //when button pressed
-    private void Field_Click(object sender, EventArgs e)
+    public  void Field_Click(object sender, EventArgs e)
     {
         MouseEventArgs m = (MouseEventArgs)e;
+        //with Right button click we set flag over field 
         if (m.Button == MouseButtons.Right) {
-                button.BackColor = System.Drawing.Color.Red;            
+            //if flag is already there 
+            if (flag) {
+                //return default color 
+                button.BackColor = System.Windows.Forms.Button.DefaultBackColor;
+                Form1.mines_displayed++;
+                if (HasMine())
+                    Form1.mines_remaining++;
+                flag = !flag;
             }
+            //if flag is not set
+            else if (!flag) {
+                flag = !flag;
+                    //chande cover color to red
+                    button.BackColor = System.Drawing.Color.Red;
+                    //set number of possibly guessed mines less by one 
+                    if (HasMine())
+                    {
+                        Form1.mines_displayed--;
+                        Form1.mines_remaining--;
+                    }
+                    else
+                    {
+                        Form1.mines_displayed--;
+                    }
+                }
+            }
+        //left mouse button pressed
         else { 
             this.Controls.Clear();
-            if (this.count > 0 && !isMine) {
-                label.Dock = DockStyle.Fill;
-                label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-                label.Text = count.ToString();
+            if (!isMine && !flag) {
+                if (this.count > 0) {
+                    //not  a mine and has a mine neightbor
+                    label.Dock = DockStyle.Fill;
+                    label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+                    label.Text = count.ToString();
+                }
+                Form1.fields_remaining--;
             }
-          // else
-          //  label.Text =  row.ToString() + " " + column.ToString() + " i:" + GetIndex(row, column, Options.width).ToString();
+            else
+                if (HasMine()){
+                    Form1.lost = true;
+                }
             this.Controls.Add(label);
         }
       }
-
-    private void CheckNeighbors(TableLayoutPanel board){
-    
-    
-    }
-
 
 
     }
