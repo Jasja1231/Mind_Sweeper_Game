@@ -1,0 +1,10 @@
+D:\jasia\Mind_Sweeper_Game\GradedP4Lab03\bin\Release\GradedP4Lab03.exe.config
+D:\jasia\Mind_Sweeper_Game\GradedP4Lab03\bin\Release\GradedP4Lab03.exe
+D:\jasia\Mind_Sweeper_Game\GradedP4Lab03\bin\Release\GradedP4Lab03.pdb
+D:\jasia\Mind_Sweeper_Game\GradedP4Lab03\obj\Release\GradedP4Lab03.Form1.resources
+D:\jasia\Mind_Sweeper_Game\GradedP4Lab03\obj\Release\GradedP4Lab03.HighScores.resources
+D:\jasia\Mind_Sweeper_Game\GradedP4Lab03\obj\Release\GradedP4Lab03.Options.resources
+D:\jasia\Mind_Sweeper_Game\GradedP4Lab03\obj\Release\GradedP4Lab03.Properties.Resources.resources
+D:\jasia\Mind_Sweeper_Game\GradedP4Lab03\obj\Release\GradedP4Lab03.csproj.GenerateResource.Cache
+D:\jasia\Mind_Sweeper_Game\GradedP4Lab03\obj\Release\GradedP4Lab03.exe
+D:\jasia\Mind_Sweeper_Game\GradedP4Lab03\obj\Release\GradedP4Lab03.pdb
